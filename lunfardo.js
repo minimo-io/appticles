@@ -1,5 +1,41 @@
 const App = new Vue({
     el: '#app',
+    
+    methods:{
+      matches(obj) {
+        const term = this.searchQuery.toLowerCase();
+        return obj.title.toLowerCase().includes(term) || obj.description.toLowerCase().includes(term);
+      }
+    },
+    
+    computed:{
+        listValues() {
+          return Object.values(this.wordsJson);
+        },
+        countWords(){
+          return Object.keys(this.wordsJson).length;
+        },
+        filteredList() {
+          if (!this.searchQuery) {
+            return this.listValues;
+          }
+  
+          return this.listValues
+            .map((v) => {
+              if (this.matches(v)) {
+                return v;
+              }
+              //
+              // const matchingSubcats = Object.values(v.subcats)
+              //   .filter((v) => this.matches(v));
+              //
+              // if (matchingSubcats.length > 0) {
+              //   return Object.assign({}, v, {subcats: matchingSubcats});
+              // }
+            })
+            .filter((v) => v);
+        }
+    },
     data: {
       placeholder: 'Buscá che...',
       searchQuery: '',
@@ -39,7 +75,8 @@ const App = new Vue({
           'word_32': { "title": "ventajero / garronero", "description": "Que saca ventaja ilícitamente."},
           'word_33': { "title": "comeorejas", "description": "Persona con facilidad para incitar a otro a hacer o a convencerlo de algo."},
           'word_34': { "title": "cara rota", "description": "Sin vergüenza."},
-          'word_35': { "title": "chúcaro", "description": "Rebelde, solitario."}
+          'word_35': { "title": "chúcaro", "description": "Rebelde, solitario."},
+          'word_36': { "title": "garúa", "description": "f. Am. llovizna."},
   
   
   
@@ -49,40 +86,6 @@ const App = new Vue({
   
       }
     },
-    methods:{
-      matches(obj) {
-        const term = this.searchQuery.toLowerCase();
-        return obj.title.toLowerCase().includes(term) || obj.description.toLowerCase().includes(term);
-      }
-    },
-    computed:{
-        listValues() {
-          return Object.values(this.wordsJson);
-        },
-        countWords(){
-          return Object.keys(this.wordsJson).length;
-        },
-        filteredList() {
-          if (!this.searchQuery) {
-            return this.listValues;
-          }
-  
-          return this.listValues
-            .map((v) => {
-              if (this.matches(v)) {
-                return v;
-              }
-              //
-              // const matchingSubcats = Object.values(v.subcats)
-              //   .filter((v) => this.matches(v));
-              //
-              // if (matchingSubcats.length > 0) {
-              //   return Object.assign({}, v, {subcats: matchingSubcats});
-              // }
-            })
-            .filter((v) => v);
-        }
-    }
   })
   
   (function($) {
