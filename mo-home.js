@@ -1,5 +1,7 @@
+// Runs at minimo.io homepage, loaded via jsdelivr (fetched from Github)
+// @minimo-io
 jQuery(document).ready(function(){
-  
+
   var READMORELANG, READLESSLANG;
   const app = Vue.createApp({
       data() {
