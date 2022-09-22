@@ -1,20 +1,21 @@
 // Runs at minimo.io homepage, loaded via jsdelivr (fetched from Github)
 // @minimo-io
-jQuery(document).ready(function(){
+// v0.1
 
+jQuery(document).ready(function(){
   var READMORELANG, READLESSLANG;
   const app = Vue.createApp({
       data() {
           return {
               readMoreActive: false,
-              readMoreText: "Leer más",
+              readMoreText: "-",
               readMoreIcon: "fa fa-arrow-right",
           }
       },
       mounted(){
           READMORELANG = jQuery(".readMoreBtn").data("readmorelang");
           READLESSLANG = jQuery(".readMoreBtn").data("readlesslang");
-
+          this.readMoreText = READMORELANG;
 
       },
       methods:{
@@ -29,7 +30,7 @@ jQuery(document).ready(function(){
               }
               this.readMoreActive = ! this.readMoreActive;
 
-              jQuery(".d-none").toggle("200", function(){
+              jQuery(".profile-more").toggle("200", function(){
                   
               });
 
