@@ -29,7 +29,7 @@ jQuery(document).ready(function(){
               }
               this.readMoreActive = ! this.readMoreActive;
 
-              jQuery(".d-none").toggle("fast", function(){
+              jQuery(".d-none").toggle("200", function(){
                   
               });
 
