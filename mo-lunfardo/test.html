@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    
+    <div class="lunfardo-app card card bg-light mb-3">
+        <div class="card-body">
+          <div id="app">
+            <form @submit.prevent="searchLunfardo">
+              <div class="search-wrapper form-group mb-0">
+                <input class="lunfardo-search-bar mb-1" :placeholder="placeholder" v-model="searchQuery">
+                <i class="fa fa-search fa-lg search-icon"></i>
+              </div>
+            </form>
+            <h3 v-if="searchQuery" class="mt-2 mb-0">Estas buscando «{{ searchQuery }}»</h3>
+            <div class="row"><div class="col text-right"><span class="badge badge-warning mt-0 text-right">{{ countWords }} palabras</span></div></div>
+            <ul class="mt-4">
+              <li v-for="(data, index) in filteredList"><strong>{{ data.title }}</strong>: {{ data.description }}</li>
+            </ul>
+            </div>
+          </div>
+    </div>
+    <style>
+    .lunfardo-search-bar{ 
+        width: 100%;
+        margin: 0;
+        background-color: rgb(213, 220, 229);
+        border-radius: 34px;
+        padding-left: 2rem;
+        color: grey;
+        margin-top: 1rem;
+        border:2px solid rgb(213, 220, 229)!important;
+        font-weight: 400!important;
+        padding-bottom: 13px!important;
+        padding-right: 55px!important;
+        padding-top: 13px!important;
+        font-size:20px;
+        position:relative;
+        padding-right: 25px;
+        box-shadow:none !important;
+    }
+    
+    .search-icon {
+        position: absolute;
+        right: 22px;
+        color: rgb(128, 128, 128);
+        top: calc(50% - 0.38em);
+    }
+    
+    .search-wrapper {
+      position: relative;
+    }
+    
+    .lunfardo-search-bar::placeholder { 
+      color: grey;
+      opacity: 1; 
+    }
+    .lunfardo-app .badge{ font-size:10px;margin-right:5px; }
+    </style>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="lunfardo.js"></script>
+
+</body>
+</html>
