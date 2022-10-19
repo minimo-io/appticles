@@ -19,9 +19,10 @@ const App = Vue.createApp({
     }
   },
 
-  mounted(){
-      // const res = fetch("");
-
+  async mounted(){
+    const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.1-test/mo-lunfardo/data/lunfardo-dict-es.json");
+    this.wordsJson = await res.json();
+    
   },
   
   computed:{
