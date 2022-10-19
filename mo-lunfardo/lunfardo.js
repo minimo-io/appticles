@@ -18,7 +18,7 @@ const App = Vue.createApp({
   },
 
   async mounted(){
-    const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.2-1/mo-lunfardo/data/lunfardo-dict-es.json");
+    const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.2-2/mo-lunfardo/data/lunfardo-dict-es.json");
     this.wordsJson = await res.json();
     
   },
@@ -33,7 +33,7 @@ const App = Vue.createApp({
       filteredList() {
         if (!this.searchQuery) {
           //return this.listValues.slice(0, 10);
-          return this.listValues.slice(0, 5);
+          return this.listValues.slice(0, 50);
         }
 
         return this.listValues
