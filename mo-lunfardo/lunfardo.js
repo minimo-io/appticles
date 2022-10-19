@@ -6,10 +6,7 @@ const App = Vue.createApp({
     return {
       placeholder: 'Buscá che...',
       searchQuery: '',
-      wordsJson: {
-        'word-1':  { "title": "sonamos", "description": "pop. ¡Estamos perdidos!"},
-        'word-2': { "title": "percanta", "description": "(pop.) Mujer (LCV.), amante (LCV.), querida (LCV.), concubina."},
-      }
+      wordsJson: []
     }
   },
   methods:{
@@ -34,7 +31,8 @@ const App = Vue.createApp({
       },
       filteredList() {
         if (!this.searchQuery) {
-          return this.listValues;
+          //return this.listValues.slice(0, 10);
+          return this.listValues.slice(0, 5);
         }
 
         return this.listValues

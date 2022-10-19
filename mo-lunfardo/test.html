@@ -10,7 +10,7 @@
 <body>
     
     <div class="lunfardo-app card card bg-light mb-3">
-        <div class="card-body">
+          <div class="card-body">
           <div id="app">
             <form @submit.prevent="searchLunfardo">
               <div class="search-wrapper form-group mb-0">
@@ -19,14 +19,24 @@
               </div>
             </form>
             <h3 v-if="searchQuery" class="mt-2 mb-0">Estas buscando «{{ searchQuery }}»</h3>
-            <div class="row"><div class="col text-right"><span class="badge badge-warning mt-0 text-right">{{ countWords }} palabras</span></div></div>
+            <div class="row"><div class="col text-right"><span class="badge badge-warning mt-0 text-right">{{ countWords }} palabras</span></div></div>     
+            <div class="lunfardo-info-box" v-if="!searchQuery">
+              <i class="fa fa-info-circle" aria-hidden="true"></i> Ingresá tu búsqueda en cuadro de arriba y encontrala entre mas de {{ countWords }} palabras del lunfardo.
+            </div>           
+            <h2 v-if="!searchQuery">Algunos ejemplos de términos lunfardos</h2> 
             <ul class="mt-4">
               <li v-for="(data, index) in filteredList"><strong>{{ data.title }}</strong>: {{ data.description }}</li>
             </ul>
-            </div>
+
+          </div>
           </div>
     </div>
     <style>
+    .lunfardo-info-box{
+      padding: 1rem;
+      background-color: #D0E2FE;
+      border-radius: 10px;
+    }
     .lunfardo-search-bar{ 
         width: 100%;
         margin: 0;
