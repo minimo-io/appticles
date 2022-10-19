@@ -13,12 +13,17 @@ const App = Vue.createApp({
   methods:{
     matches(obj) {
       const term = this.searchQuery.toLowerCase();
-      return obj.title.toLowerCase().includes(term) || obj.description.toLowerCase().includes(term);
+      
+      //return obj.t.toLowerCase().includes(term) || obj.d.toLowerCase().includes(term);
+      // search only on terms not descriptions for it not to be so messy
+      return obj.t.toLowerCase().includes(term);
     }
   },
 
   async mounted(){
-    const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.2-2/mo-lunfardo/data/lunfardo-dict-es.json");
+    const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.2-3/mo-lunfardo/data/lunfardo-dict-es.json");
+    // const res = await fetch("tools/dicc.json");
+    // const res = await fetch("data/lunfardo-dict-es.json");
     this.wordsJson = await res.json();
     
   },
@@ -35,7 +40,6 @@ const App = Vue.createApp({
           //return this.listValues.slice(0, 10);
           return this.listValues.slice(0, 50);
         }
-
         return this.listValues
           .map((v) => {
             if (this.matches(v)) {
