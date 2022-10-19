@@ -1,5 +1,6 @@
 // Runs at https://minimo.io/diccionario-de-lunfardo-2020062059/, loaded via jsdelivr (fetched from Github)
 // @minimo-io
+// v.0.1
 
 const App = Vue.createApp({
   data(){
