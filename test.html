@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Tests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .profile-more{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-more">
+        This is a hidden text. Named for some obscure action to be active on the web.
+        <br>
+        Now it's time to rock & roll!
+    </div>
+<div id="mo-home-vue-app">
+    <a class="readMoreBtn" data-readlesslang = "Leia menos" data-readmorelang = "Leia mais" @click.prevent="readMore()"><i :class="readMoreIcon" aria-hidden="true"></i> {{ readMoreText }}</a>
+</div>
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+    <script>
+    jQuery(document).ready(function(){
+        var READMORELANG, READLESSLANG;
+        const app = Vue.createApp({
+            data() {
+                return {
+                    readMoreActive: false,
+                    readMoreText: "-",
+                    readMoreIcon: "fa fa-arrow-right",
+                }
+            },
+            mounted(){
+                READMORELANG = jQuery(".readMoreBtn").data("readmorelang");
+                READLESSLANG = jQuery(".readMoreBtn").data("readlesslang");
+                this.readMoreText = READMORELANG;
+
+            },
+            methods:{
+                readMore(){
+                    if (this.readMoreActive){
+                        this.readMoreText = READMORELANG;
+                        this.readMoreIcon = "fa fa-arrow-right";
+
+                    }else{
+                        this.readMoreText = READLESSLANG;
+                        this.readMoreIcon = "fa fa-minus";
+                    }
+                    this.readMoreActive = ! this.readMoreActive;
+
+                    jQuery(".profile-more").toggle("200", function(){
+                        
+                    });
+
+
+                }
+            }
+        })
+        app.mount('#mo-home-vue-app')
+
+    });
+       
+    </script>
+</body>
+</html>
