@@ -1,12 +1,12 @@
 // Runs at https://minimo.io/diccionario-de-lunfardo-2020062059/, loaded via jsdelivr (fetched from Github)
 // @minimo-io
-// v.0.1
 
 const App = Vue.createApp({
   data(){
     return {
       placeholder: 'Buscá che...',
       searchQuery: '',
+      noResults: false,
       wordsJson: []
     }
   },
@@ -40,13 +40,15 @@ const App = Vue.createApp({
           //return this.listValues.slice(0, 10);
           return this.listValues.slice(0, 50);
         }
-        return this.listValues
-          .map((v) => {
-            if (this.matches(v)) {
-              return v;
-            }
-          })
-          .filter((v) => v);
+        var filteredValues = this.listValues
+        .map((v) => {
+          if (this.matches(v)) {
+            return v;
+          }
+        })
+        .filter((v) => v);
+        if (filteredValues.length <= 0) this.noResults = true;
+        return filteredValues;
       }
     },
 

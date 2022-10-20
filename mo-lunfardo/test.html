@@ -12,7 +12,7 @@
     <div class="lunfardo-app card card bg-light mb-3">
           <div class="card-body">
           <div id="app">
-            <form @submit.prevent="searchLunfardo">
+            <form @submit.prevent>
               <div class="search-wrapper form-group mb-0">
                 <input class="lunfardo-search-bar mb-1" :placeholder="placeholder" v-model="searchQuery">
                 <i class="fa fa-search fa-lg search-icon"></i>
@@ -22,8 +22,9 @@
             <div class="row"><div class="col text-right"><span class="badge badge-warning mt-0 text-right">{{ countWords }} palabras</span></div></div>     
             <div class="lunfardo-info-box" v-if="!searchQuery">
               <i class="fa fa-info-circle" aria-hidden="true"></i> Ingresá tu búsqueda en cuadro de arriba y recorré mas de {{ countWords }} palabras lunfardas.
-            </div>           
-            <h2 v-if="!searchQuery">Algunos ejemplos de términos lunfardos</h2> 
+            </div>
+            <p v-if="filteredList.length <= 0">Epa ché, sabés que todavía no se ha inventado ese término. Si existe, <a href="https://bit.ly/mo_wpp" target="_blank" rel="nofollow noopener"><i class="fa fa-whatsapp mr-1" aria-hidden="true"></i>ponete en contacto</a> y lo agregamos.</p>     
+            <h2 v-if="!searchQuery">Algunos ejemplos</h2> 
             <ul class="mt-4">
               <li v-for="(data, index) in filteredList"><strong>{{ data.t }}</strong>: {{ data.d }}</li>
             </ul>
