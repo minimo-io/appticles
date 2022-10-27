@@ -28,6 +28,7 @@
             <ul class="mt-4">
               <li v-for="(data, index) in filteredList"><strong>{{ data.t }}</strong>: {{ data.d }}</li>
             </ul>
+            <button v-if="! searchQuery && showLoadMore" @click="loadMore">Cargar más</button>
 
           </div>
           </div>
