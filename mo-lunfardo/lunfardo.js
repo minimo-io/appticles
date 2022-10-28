@@ -29,8 +29,8 @@ const App = Vue.createApp({
 
   async mounted(){
     // const res = await fetch("https://cdn.jsdelivr.net/gh/minimo-io/appticles@v0.0.2-6/mo-lunfardo/data/lunfardo-dict-es.json");
-    // const res = await fetch("tools/dicc.json");
-     const res = await fetch("data/lunfardo-dict-es.json");
+    //const res = await fetch("data/dicc-merged.json");
+    const res = await fetch("dart_tools/data/lunfardo-dict-es.json");
     this.wordsJson = await res.json();
     
   },

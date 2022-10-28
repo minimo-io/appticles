@@ -107,13 +107,37 @@ main(List<String> args) async {
     String input1 = await File(parserResults["input1"]).readAsString();
     String input2 = await File(parserResults["input2"]).readAsString();
 
-    var json1 = jsonDecode(input1);
+    List json1 = jsonDecode(input1);
+    List json2 = jsonDecode(input2);
+    print("Json 1 total word wount:" + json1.length.toString());
+    print("Json 2 total word wount:" + json2.length.toString());
 
-    print(json1);
+    int sameWordsCount = 0;
+    List<Map<String, dynamic>> finalList = [];
+    for (var i = 0; i < json1.length; i++) {
+      bool isDuplicated = false;
+      // check on json2 strings
+      for (var ii = 0; ii < json2.length; ii++) {
+        if (json1[i]["t"] == json2[ii]["t"]) {
+          // if exists in both remove from the second file before merge
+          json2.remove(json2[ii]);
 
-    // File(parserResults["input1"]).readAsString().then((String contents) {
+          sameWordsCount++;
+          break;
+        }
+      }
+      finalList = [...json1, ...json2];
+      // if (isDuplicated == true) {
+      //   finalList.add(json1[i]);
+      //   print(json1[i]["t"]);
+      // }
+    }
 
-    // });
+    print("Ché, there is a total of $sameWordsCount duplicated words.");
+    print("Total words for new file: " + (finalList.length.toString()));
+    //     return map['users'];
+
+    saveFile(json.encode(finalList), parserResults["output"]);
   }
   // last dicc from folkloretradiciones.com.ar
 }
