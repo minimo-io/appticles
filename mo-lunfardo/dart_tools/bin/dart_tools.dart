@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:args/args.dart';
 
-main(List<String> args) {
+main(List<String> args) async {
   // var dir = Directory.current.path;
   // var p = Platform.script.path;
 
@@ -103,6 +103,17 @@ main(List<String> args) {
       exit(1);
     }
     print("> Let's do it! Trying to merge...");
+
+    String input1 = await File(parserResults["input1"]).readAsString();
+    String input2 = await File(parserResults["input2"]).readAsString();
+
+    var json1 = jsonDecode(input1);
+
+    print(json1);
+
+    // File(parserResults["input1"]).readAsString().then((String contents) {
+
+    // });
   }
   // last dicc from folkloretradiciones.com.ar
 }
