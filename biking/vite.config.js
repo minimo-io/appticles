@@ -5,4 +5,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   base: "/biking/",
   plugins: [svelte()],
+  
+  server:{
+    open: "index.html"
+  }
 })
