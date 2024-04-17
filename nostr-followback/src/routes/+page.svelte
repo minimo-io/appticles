@@ -1,6 +1,8 @@
 <script>
     // Import the package
     import NDK from "@nostr-dev-kit/ndk";
+    import { fetchUserProfile } from "$lib/fetchs";
+    import { relays } from "$lib/data/relays";
 
     let npubToQuery = "npub1wujhdsytm3w6g0mpsqh8v7ezx83jcm64dlkwuqgm5v8lv0pds55ssudkw0";
     let userName;
@@ -12,52 +14,18 @@
     let unknownFollowBack = 0;
     let totalCountOfContactsChecked = 0;
 
+    let originalFollow = [];
     let notFollowersBack = [];
 
-    async function fetchUserProfile(npub, ndk) {
-        const user = ndk.getUser({ npub });
-        await user.fetchProfile();
-        // console.log("User profile:", user.profile);
-        // console.log("User profile:", user);
-        return user;
-    }
-    async function fetchNotes(hexkey, ndk) {
-        const kind1filter = { kinds: [3], authors: [hexkey] };
-        return ndk.fetchEvent(kind1filter);
-
-        // const kind1filter = { author: [hexkey] };
-        // return ndk.fetchEvent(kind1filter);
-    }
+    function updateNpub() {}
 
     async function bootstrap() {
         try {
             const ndk = new NDK({
-                explicitRelayUrls: [
-                    "wss://relay.hodl.ar",
-                    "wss://relay.current.fyi",
-                    "wss://nostr.wine",
-                    "wss://nostr.plebchain.org",
-                    "wss://purplepag.es",
-                    "wss://nos.lol",
-                    "wss://nostr.mom",
-                    "wss://nostrelay.yeghro.site",
-                    "wss://relay.damus.io",
-                    "wss://relay.nostr.bg",
-                    "wss://relay.snort.social",
-                    "wss://relay.primal.net",
-                    "wss://nostr.bitcoiner.social",
-                    "wss://nostr.mutinywallet.com",
-                    "wss://relay.current.fyi",
-                    "wss://nostr-pub.wellorder.net",
-
-                    // "wss://brb.io",
-                    // "wss://eden.nostr.land",
-                    // "wss://nostr.orangepill.dev",
-                ],
+                explicitRelayUrls: relays,
             });
             await ndk.connect();
 
-            // const user = await fetchUserProfile("npub1l8hja34gyeqrhc8plpcl3sql476n2rkgrzexazsfytwjkmy9kndqhx6pk9", ndk);
             const user = await fetchUserProfile(npubToQuery, ndk);
 
             userName = user.profile.name;
@@ -70,22 +38,28 @@
                 followsCount = follows.size;
 
                 let lastFollowerBack;
-
+                let i = 0;
                 follows.forEach(async (follower) => {
-                    await new Promise((resolve) => setTimeout(resolve, 1000));
+                    //for (const follower of follows) {
+                    // await new Promise((resolve) => setTimeout(resolve, 0));
                     const followerFollowList = await follower.follows();
+
+                    originalFollow.push({ npub: follower.npub, followsBack: "-" }); // add to follower list
+                    originalFollow = originalFollow;
 
                     if (followerFollowList.size) {
                         // console.log(followerFollowList);
                         // check if the user is in the queried user follow list
                         let doesFollowBack = false;
-                        for (const contact of followerFollowList) {
+                        for (let contact of followerFollowList) {
                             lastFollowerBack = contact.npub;
                             if (contact.npub == npubToQuery) {
                                 doesFollowBack = true;
                                 break;
                             }
                         }
+
+                        originalFollow[i].followBack = doesFollowBack ? "1" : "0";
 
                         // decision making time
                         if (doesFollowBack) {
@@ -95,7 +69,7 @@
                         } else {
                             notFollowBackCount++;
 
-                            notFollowersBack.push(lastFollowerBack);
+                            notFollowersBack.push(follower.npub);
                             notFollowersBack = notFollowersBack;
                             totalCountOfContactsChecked++;
                         }
@@ -103,14 +77,13 @@
                         unknownFollowBack++;
                         totalCountOfContactsChecked++;
                     }
+                    i++;
                 });
+
+                // follows.forEach(async (follower) => {
+
+                // });
             }
-
-            // console.log("Followers:");
-            // let followers = await fetchNotes(user.hexpubkey, ndk);
-            // console.log(followers.tags.length);
-
-            // const longNotes = await fetchLongNotes(hexkey, ndk);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -128,23 +101,44 @@
     <div class="user-box">
         <img src={userThumb} width="50" style="border-radius:100%;" alt="user-thumb" />
         User: {userName} |  Follows: {followsCount}
+        <br />
+        {npubToQuery}
         <br /><br />
         Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} | <strong>Not_Follow_Back</strong>:
         <span title="Actually Counted">{notFollowBackCount}</span>
         / <span title="Actualy counted">{notFollowersBack.length}</span>
         <br />
-        Total Scanned = {totalCountOfContactsChecked} of {followBackCount + notFollowBackCount + unknownFollowBack}
-        <br /><br />
+        <p>
+            Progress = {totalCountOfContactsChecked} of {followBackCount + notFollowBackCount + unknownFollowBack}
+        </p>
+        <hr />
+        <br />
+        Results ({originalFollow.length})
+        <ul>
+            {#each originalFollow as item, i}
+                <li>
+                    #{i + 1} - {@html item.followBack == "0" ? "<span>🔴</span>" : "<span>🟢</span>"}
+                    <a target="_blank noreferrer noopener" href="https://primal.net/p/{item.npub}">
+                        {item.npub}
+                    </a>
+                    <!-- {JSON.stringify(item)} -->
+                </li>
+            {/each}
+        </ul>
+        <!-- <br />
         <strong>They don't follow you ({notFollowersBack.length}):</strong>
-        <br /><br />
-        {#each notFollowersBack as item, i}
-            <li>
-                #{i + 1} - <a href="https://nostr.band/{item}" target="_blank noreferrer noopener">Nostr.Band</a>
-                / <a href="https://primal.net/p/{item}" target="_blank noreferrer noopener">Primal</a>
-                :
-                {item}
-            </li>
-        {/each}
+        <br />
+
+        <ul>
+            {#each notFollowersBack as item, i (item)}
+                <li>
+                    #{i + 1} - <a href="https://nostr.band/{item}" target="_blank noreferrer noopener">Nostr.Band</a>
+                    / <a href="https://primal.net/p/{item}" target="_blank noreferrer noopener">Primal</a>
+                    :
+                    {item}
+                </li>
+            {/each}
+        </ul> -->
     </div>
 {:else}
     <div class="loader">Loading data...</div>
