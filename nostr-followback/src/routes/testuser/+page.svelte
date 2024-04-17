@@ -38,10 +38,15 @@
 </script>
 
 <h3>This npub follows:</h3>
-<img src={userThumb} width="50" style="border-radius:100%;" alt="user-thumb" />
-User: {userName} |  Follows: {followsCount}
-<br />
-nPub: {npubToQuery}
+{#if userThumb}
+    <a target="_blank noreferrer noopener" href="https://primal.net/p/{npubToQuery}"
+        ><img src={userThumb} width="50" style="border-radius:100%;" alt="user-thumb" /></a
+    >
+    User: <a target="_blank noreferrer noopener" href="https://primal.net/p/{npubToQuery}">{userName}</a> |  Follows: {followsCount}
+{:else}
+    <div class="loader">Loading data for... {npubToQuery}</div>
+{/if}
+
 <br /><br />
 
 <ul>

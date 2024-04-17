@@ -6,9 +6,14 @@ Let promote some reciprocity here! 😹
 ## ToDo
 
 -   Add % value for progress.
+-   Add forms
 -   Query for userdata, at least for no-followers
 -   Remove SvelteKit (just Vite + Svelte).
 -   Polish the proof-of-concept code.
 -   Configure Vite for the miniapp to be loaded in the article's url as base.
 -   Save followbackers and not followbackers in lists to see details.
 -   Create an UI/UX that's worth looking at.
+
+## v2
+
+-   Upload a localStorage list of relays
