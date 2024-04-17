@@ -10,6 +10,9 @@
     let followBackCount = 0;
     let notFollowBackCount = 0;
     let unknownFollowBack = 0;
+    let totalCountOfContactsChecked = 0;
+
+    let notFollowersBack = [];
 
     async function fetchUserProfile(npub, ndk) {
         const user = ndk.getUser({ npub });
@@ -66,6 +69,8 @@
 
                 followsCount = follows.size;
 
+                let lastFollowerBack;
+
                 follows.forEach(async (follower) => {
                     await new Promise((resolve) => setTimeout(resolve, 1000));
                     const followerFollowList = await follower.follows();
@@ -75,18 +80,28 @@
                         // check if the user is in the queried user follow list
                         let doesFollowBack = false;
                         for (const contact of followerFollowList) {
+                            lastFollowerBack = contact.npub;
                             if (contact.npub == npubToQuery) {
                                 doesFollowBack = true;
                                 break;
                             }
                         }
+
+                        // decision making time
                         if (doesFollowBack) {
                             followBackCount++;
+                            totalCountOfContactsChecked++;
+                            // add here the ones who do follow back
                         } else {
                             notFollowBackCount++;
+
+                            notFollowersBack.push(lastFollowerBack);
+                            notFollowersBack = notFollowersBack;
+                            totalCountOfContactsChecked++;
                         }
                     } else {
                         unknownFollowBack++;
+                        totalCountOfContactsChecked++;
                     }
                 });
             }
@@ -113,8 +128,23 @@
     <div class="user-box">
         <img src={userThumb} width="50" style="border-radius:100%;" alt="user-thumb" />
         User: {userName} |  Follows: {followsCount}
+        <br /><br />
+        Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} | <strong>Not_Follow_Back</strong>:
+        <span title="Actually Counted">{notFollowBackCount}</span>
+        / <span title="Actualy counted">{notFollowersBack.length}</span>
         <br />
-        Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} | Not_Follow_Back: {notFollowBackCount}
+        Total Scanned = {totalCountOfContactsChecked} of {followBackCount + notFollowBackCount + unknownFollowBack}
+        <br /><br />
+        <strong>They don't follow you ({notFollowersBack.length}):</strong>
+        <br /><br />
+        {#each notFollowersBack as item, i}
+            <li>
+                #{i + 1} - <a href="https://nostr.band/{item}" target="_blank noreferrer noopener">Nostr.Band</a>
+                / <a href="https://primal.net/p/{item}" target="_blank noreferrer noopener">Primal</a>
+                :
+                {item}
+            </li>
+        {/each}
     </div>
 {:else}
     <div class="loader">Loading data...</div>
