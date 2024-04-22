@@ -1,4 +1,5 @@
 export const relays = [
+    "wss://cache2.primal.net/v1",
     "wss://relay.hodl.ar",
     "wss://relay.current.fyi",
     "wss://nostr.wine",
@@ -14,7 +15,8 @@ export const relays = [
     "wss://nostr.bitcoiner.social",
     "wss://nostr.mutinywallet.com",
     "wss://relay.current.fyi",
-    "wss://relay.plebstr.com",
+    // "wss://relay.plebstr.com",
+
     // "wss://nostr-pub.wellorder.net",
     // "wss://brb.io",
     // "wss://eden.nostr.land",

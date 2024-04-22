@@ -5,7 +5,6 @@ Let promote some reciprocity here! 😹
 
 ## ToDo
 
--   Add % value for progress.
 -   Add forms
 -   Query for userdata, at least for no-followers
 -   Remove SvelteKit (just Vite + Svelte).
