@@ -15,10 +15,5 @@ export const relays = [
     "wss://nostr.bitcoiner.social",
     "wss://nostr.mutinywallet.com",
     "wss://relay.current.fyi",
-    // "wss://relay.plebstr.com",
-
-    // "wss://nostr-pub.wellorder.net",
-    // "wss://brb.io",
-    // "wss://eden.nostr.land",
-    // "wss://nostr.orangepill.dev",
+    "wss://brb.io",
 ];

@@ -136,9 +136,10 @@
         {#if progress < 100}
             <p>
                 Progress =
-                <strong>{progress}%</strong> - {totalCountOfContactsChecked} of {followBackCount +
+                <strong>{progress}%</strong> - {totalCountOfContactsChecked} of {followsCount}
+                <!-- - {totalCountOfContactsChecked} of {followBackCount +
                     notFollowBackCount +
-                    unknownFollowBack}
+                    unknownFollowBack} -->
             </p>
         {:else}
             <p><strong>Completed!</strong></p>
