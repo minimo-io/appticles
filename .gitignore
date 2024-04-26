@@ -11,9 +11,9 @@ Gemfile.lock
 # Jekyll cache
 .jekyll-cache
 _site
-
+**/dist/index.html
 build
-dist
+
 # RubyGems
 *.gem
 
