@@ -5,9 +5,8 @@ Let promote some reciprocity here! 😹
 
 ## ToDo
 
--   Add forms
--   Query for userdata, at least for no-followers
 -   Remove SvelteKit (just Vite + Svelte).
+-   Add forms
 -   Polish the proof-of-concept code.
 -   Configure Vite for the miniapp to be loaded in the article's url as base.
 -   Save followbackers and not followbackers in lists to see details.
