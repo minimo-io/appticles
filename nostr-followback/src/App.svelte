@@ -17,12 +17,12 @@
     let unknownFollowBack = 0;
     let totalCountOfContactsChecked = 0;
 
-    $: progress = ((totalCountOfContactsChecked / followsCount) * 100).toFixed();
+    $: progress = ((totalCountOfContactsChecked / followsCount) * 100).toFixed() | 0;
 
     let originalFollow = [];
     let notFollowersBack = [];
 
-    async function bootstrap() {
+    async function checkFollowBacks() {
         try {
             const ndk = new NDK({
                 explicitRelayUrls: relays,
@@ -92,13 +92,14 @@
         }
     }
 
-    //bootstrap();
+    //checkFollowBacks();
 </script>
 
-<h1>Who does not follows you on Nostr</h1>
+<h1>Nostr Followback</h1>
+<p>Let's find out who does not follow you back in Nostr!</p>
 
 <form class="npub-form">
-    <input type="text" bind:value={npubToQuery} placeholder={npubToQuery} />
+    <input disabled={querying && progress < 100} type="text" placeholder="An npub to check" bind:value={npubToQuery} />
     <input
         type="button"
         on:click={async () => {
@@ -111,31 +112,29 @@
             notFollowBackCount = 0;
             unknownFollowBack = 0;
             totalCountOfContactsChecked = 0;
-            bootstrap();
+            await checkFollowBacks();
         }}
+        disabled={!npubToQuery && progress < 100}
         value="Analyze"
     />
 </form>
 
-{#if !querying}
+<!-- {#if !querying}
     {npubToQuery}
-{/if}
-
-<hr />
+{/if} -->
 
 {#if userThumb}
     <div class="user-box">
         <img src={userThumb} width="50" style="border-radius:100%;" alt="user-thumb" />
-        User: {userName} |  Follows: {followsCount}
-        <br />
-        {npubToQuery}
-        <br />
+        User:
+        <a href="https://primal.net/p/{npubToQuery}">{userName}</a>
+        |  Follows: {followsCount}
         <br />
         Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} |
-        <strong>Not_Follow_Back</strong>
+        <strong>👉 Not_Follow_Back</strong>
         :
-        <span title="Actually Counted">{notFollowBackCount}</span>
-        /
+        <!-- <span title="Actually Counted">{notFollowBackCount}</span>
+        / -->
         <span title="Actualy counted">{notFollowersBack.length}</span>
         <br />
         {#if progress < 100}
@@ -180,7 +179,7 @@
       </ul> -->
     </div>
 {:else if !querying}
-    <p>Let's find out who does not follow you back in Nostr!</p>
+    <!-- <p>Let's find out who does not follow you back in Nostr!</p> -->
 {:else}
     <div class="loader">Loading data...</div>
 {/if}
