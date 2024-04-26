@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
+    // @ts-nocheck
     // Import the package
     import NDK from "@nostr-dev-kit/ndk";
-    import { fetchUserProfile } from "$lib/fetchs";
-    import { relays } from "$lib/data/relays";
+    import { fetchUserProfile } from "./lib/fetchs";
+    import { relays } from "./lib/data/relays";
 
     // let npubToQuery = "npub1wujhdsytm3w6g0mpsqh8v7ezx83jcm64dlkwuqgm5v8lv0pds55ssudkw0";
     let npubToQuery = "";
     let querying = false;
     let userName = "";
     let userThumb = "";
-    let followsCount;
+    let followsCount = 0;
 
     let followBackCount = 0;
     let notFollowBackCount = 0;
@@ -128,18 +129,23 @@
         User: {userName} |  Follows: {followsCount}
         <br />
         {npubToQuery}
-        <br /><br />
-        Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} | <strong>Not_Follow_Back</strong>:
+        <br />
+        <br />
+        Unknown: {unknownFollowBack} | Follow_Back: {followBackCount} |
+        <strong>Not_Follow_Back</strong>
+        :
         <span title="Actually Counted">{notFollowBackCount}</span>
-        / <span title="Actualy counted">{notFollowersBack.length}</span>
+        /
+        <span title="Actualy counted">{notFollowersBack.length}</span>
         <br />
         {#if progress < 100}
             <p>
                 Progress =
-                <strong>{progress}%</strong> - {totalCountOfContactsChecked} of {followsCount}
+                <strong>{progress}%</strong>
+                - {totalCountOfContactsChecked} of {followsCount}
                 <!-- - {totalCountOfContactsChecked} of {followBackCount +
-                    notFollowBackCount +
-                    unknownFollowBack} -->
+                  notFollowBackCount +
+                  unknownFollowBack} -->
             </p>
         {:else}
             <p><strong>Completed!</strong></p>
@@ -159,19 +165,19 @@
             {/each}
         </ul>
         <!-- <br />
-        <strong>They don't follow you ({notFollowersBack.length}):</strong>
-        <br />
+      <strong>They don't follow you ({notFollowersBack.length}):</strong>
+      <br />
 
-        <ul>
-            {#each notFollowersBack as item, i (item)}
-                <li>
-                    #{i + 1} - <a href="https://nostr.band/{item}" target="_blank noreferrer noopener">Nostr.Band</a>
-                    / <a href="https://primal.net/p/{item}" target="_blank noreferrer noopener">Primal</a>
-                    :
-                    {item}
-                </li>
-            {/each}
-        </ul> -->
+      <ul>
+          {#each notFollowersBack as item, i (item)}
+              <li>
+                  #{i + 1} - <a href="https://nostr.band/{item}" target="_blank noreferrer noopener">Nostr.Band</a>
+                  / <a href="https://primal.net/p/{item}" target="_blank noreferrer noopener">Primal</a>
+                  :
+                  {item}
+              </li>
+          {/each}
+      </ul> -->
     </div>
 {:else if !querying}
     <p>Let's find out who does not follow you back in Nostr!</p>

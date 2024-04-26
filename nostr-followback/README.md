@@ -11,7 +11,4 @@ Let promote some reciprocity here! 😹
 -   Configure Vite for the miniapp to be loaded in the article's url as base.
 -   Save followbackers and not followbackers in lists to see details.
 -   Create an UI/UX that's worth looking at.
-
-## v2
-
 -   Upload a localStorage list of relays
