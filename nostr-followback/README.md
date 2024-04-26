@@ -1,4 +1,4 @@
-# Nostr Reciprocal Follow
+# Nostr Followback
 
 Find out who does and who doesn't follow you back on Nostr.
 Let promote some reciprocity here! 😹
