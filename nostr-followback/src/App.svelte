@@ -95,9 +95,6 @@
     //checkFollowBacks();
 </script>
 
-<h1>Nostr Followback</h1>
-<p>Let's find out who does not follow you back in Nostr!</p>
-
 <form class="npub-form">
     <input disabled={querying && progress < 100} type="text" placeholder="An npub to check" bind:value={npubToQuery} />
     <input
