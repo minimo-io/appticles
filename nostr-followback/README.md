@@ -3,7 +3,7 @@
 Find out who does and who doesn't follow you back on Nostr.
 Let promote some reciprocity here! 😹
 
-> Check out the [demo](npub1vp8fdcyejd4pqjyrjk9sgz68vuhq7pyvnzk8j0ehlljvwgp8n6eqsrnpsw).
+> Check out the [demo](https://minimo.io/app/nostr-followback/).
 
 ## ToDo
 
