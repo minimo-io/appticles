@@ -11,7 +11,7 @@ Let promote some reciprocity here! 😹
 -   Create an UI/UX that's worth looking at.
 -   Close connection with relays after all is checked
 -   Show the relay list to be used
--   Upload a localStorage list of relays
+-   Upload a localStorage list of relays & older results for folloback
 
 -   ~~Actually load builds at minimo.io/app/ or something alike.~~
 -   ~~Configure Vite for the miniapp to be loaded in the article's url as base.~~
