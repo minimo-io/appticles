@@ -1,10 +1,10 @@
 # About appticles
 
-A bunch of mini-apps or appticles created for [minimo.io](https://minimo.io).
+A bunch of microapps (aka appticles) created for [minimo.io](https://minimo.io).
 
-These micro-apps were embedded on blog posts for adding extra functionality. They were developed primarily using the Svelte Framework or Alpine.js. Most of them just as proof-of-concepts and for learning purposes.
+These microapps are used for adding extra functionality to blog posts and articles. They are develop primarily using the Svelte Framework or Alpine.js.
 
-The site [minimo.io](https://github.com/minimo-io/minimo-11ty) itself was built using [Eleventy](https://github.com/11ty/eleventy).
+Minimo.io itself [was built using Eleventy](https://github.com/minimo-io/minimo-11ty).
 
 ## Get in touch.
 
