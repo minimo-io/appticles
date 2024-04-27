@@ -6,7 +6,6 @@ Let promote some reciprocity here! 😹
 ## ToDo
 
 -   Create groups to checks to fire simultaneously instad of one by one (to remember: fireing all the `fetchProfile` at once for a given npub resulted in a permanent halt of the process -mainly for big users). Maybe using https://lodash.com/docs `_.chunk(array, [size=1])`
--   Polish the proof-of-concept code, making it TS code and remove `// @ts-nocheck`!
 -   Create interfaces or new types instead of loose variables
 -   Save followbackers and not followbackers in lists to see details.
 -   Create an UI/UX that's worth looking at.

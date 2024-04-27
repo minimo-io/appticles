@@ -1,12 +1,13 @@
 <script lang="ts">
-    // @ts-nocheck
     import NDK, { type NDKUserProfile } from "@nostr-dev-kit/ndk";
-    import type { userFollowData } from "./lib/types";
+    import type { Querying, FollowListed } from "./lib/types";
     import { relays } from "./lib/data/relays";
+
+    import Form from "./lib/components/form.svelte";
 
     let npubToQuery = "npub1wujhdsytm3w6g0mpsqh8v7ezx83jcm64dlkwuqgm5v8lv0pds55ssudkw0";
 
-    let querying: "completed" | "processing" | "uninitiated" = "uninitiated";
+    let querying: Querying = "uninitiated";
 
     let userProfile: NDKUserProfile | null;
 
@@ -16,19 +17,19 @@
     let unknownFollowBack = 0;
     let totalCountOfContactsChecked = 0;
 
-    $: progress = ((totalCountOfContactsChecked / followsCount) * 100).toFixed() | 0;
+    $: progress = ((totalCountOfContactsChecked / followsCount) * 100) | 0;
     $: notFollowBackPercentage = ((notFollowersBack.length / originalFollow.length) * 100) | 0;
 
-    let originalFollow = [];
-    let notFollowersBack = [];
+    let originalFollow: FollowListed[] = [];
+    let notFollowersBack: string[] = [];
 
     async function checkFollowBacks() {
         try {
             const ndk = new NDK({
                 explicitRelayUrls: relays,
             });
-            await ndk.connect(6000);
             querying = "processing";
+            await ndk.connect(6000);
 
             // create user instance
             const user = ndk.getUser({ npub: npubToQuery });
@@ -64,7 +65,7 @@
                                 }
                             }
 
-                            originalFollow[i].followBack = doesFollowBack ? "1" : "0";
+                            originalFollow[i].followsBack = doesFollowBack ? "1" : "0";
 
                             // decision making time
                             if (doesFollowBack) {
@@ -101,30 +102,22 @@
     }
 </script>
 
-<form class="npub-form">
-    <input
-        disabled={querying == "processing" && progress < 100}
-        type="text"
-        placeholder="npub to check"
-        bind:value={npubToQuery}
-    />
-    <input
-        type="button"
-        on:click={async () => {
-            querying = true;
-            userProfile = null;
-            originalFollow = [];
-            notFollowersBack = [];
-            followBackCount = 0;
-            notFollowBackCount = 0;
-            unknownFollowBack = 0;
-            totalCountOfContactsChecked = 0;
-            await checkFollowBacks();
-        }}
-        disabled={!npubToQuery && progress < 100}
-        value="Analyze"
-    />
-</form>
+<Form
+    {progress}
+    {querying}
+    bind:npubToQuery
+    on:click={async () => {
+        querying = "uninitiated";
+        userProfile = null;
+        originalFollow = [];
+        notFollowersBack = [];
+        followBackCount = 0;
+        notFollowBackCount = 0;
+        unknownFollowBack = 0;
+        totalCountOfContactsChecked = 0;
+        await checkFollowBacks();
+    }}
+/>
 
 {#if userProfile}
     <div class="user-box">
@@ -154,7 +147,7 @@
         <ul>
             {#each originalFollow as item, i}
                 <li>
-                    #{ItemCount(i + 1)} - {@html item.followBack == "0" ? "<span>🔴</span>" : "<span>🟢</span>"}
+                    #{ItemCount(i + 1)} - {@html item.followsBack == "0" ? "<span>🔴</span>" : "<span>🟢</span>"}
                     <a target="_blank noreferrer noopener" href="https://primal.net/p/{item.npub}">
                         {item.npub}
                     </a>
@@ -168,10 +161,3 @@
 {:else}
     <div class="loader">Loading data...</div>
 {/if}
-
-<style>
-    .npub-form input[type="text"] {
-        padding: 5px;
-        width: 50%;
-    }
-</style>
