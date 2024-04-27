@@ -3,6 +3,8 @@
 Find out who does and who doesn't follow you back on Nostr.
 Let promote some reciprocity here! 😹
 
+> Check out the [demo](npub1vp8fdcyejd4pqjyrjk9sgz68vuhq7pyvnzk8j0ehlljvwgp8n6eqsrnpsw).
+
 ## ToDo
 
 -   Create groups to checks to fire simultaneously instad of one by one (to remember: fireing all the `fetchProfile` at once for a given npub resulted in a permanent halt of the process -mainly for big users). Maybe using https://lodash.com/docs `_.chunk(array, [size=1])`
