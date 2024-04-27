@@ -9,11 +9,11 @@ export const relays = [
     "wss://nostr.mom",
     "wss://nostrelay.yeghro.site",
     "wss://relay.damus.io",
-    "wss://relay.nostr.bg",
+    // "wss://relay.nostr.bg",
     "wss://relay.snort.social",
     "wss://relay.primal.net",
     "wss://nostr.bitcoiner.social",
     "wss://nostr.mutinywallet.com",
     "wss://relay.current.fyi",
-    "wss://brb.io",
+    // "wss://brb.io",
 ];
